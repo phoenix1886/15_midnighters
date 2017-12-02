@@ -14,10 +14,16 @@ def load_raw_data(page_number):
 
 def load_solution_attempts(data_loader):
     solution_attempts = []
-    num_of_pages = 10
-    for page_number in range(1, num_of_pages+1):
-        raw_data = data_loader(page_number)
+    page_to_load = 1
+    number_of_pages = 0
+
+    while page_to_load != number_of_pages:
+        raw_data = data_loader(page_to_load)
         solution_attempts.extend(raw_data['records'])
+        page_to_load += 1
+        if not number_of_pages:
+            number_of_pages = raw_data['number_of_pages']
+
     return solution_attempts
 
 
@@ -57,8 +63,7 @@ def print_to_console(midnighters_top_list):
 
 
 if __name__ == '__main__':
-    data_loader = load_raw_data
-    solution_attempts = load_solution_attempts(data_loader)
+    solution_attempts = load_solution_attempts(load_raw_data)
     midnight_attempts_usernames = get_midnight_attempts_usernames(
         solution_attempts, is_midnight_attempt)
     midnighters_top_list = calc_midnighters_top_list(
