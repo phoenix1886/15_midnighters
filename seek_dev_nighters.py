@@ -14,15 +14,13 @@ def load_raw_data(page_number):
 
 def load_solution_attempts(data_loader):
     solution_attempts = []
-    page_to_load = 1
-    number_of_pages = 0
+    first_page_data = data_loader(1)
+    total_number_of_pages = first_page_data['number_of_pages']
+    solution_attempts.extend(first_page_data['records'])
 
-    while page_to_load != number_of_pages:
-        raw_data = data_loader(page_to_load)
+    for page_number in range(2, total_number_of_pages+1):
+        raw_data = data_loader(page_number)
         solution_attempts.extend(raw_data['records'])
-        page_to_load += 1
-        if not number_of_pages:
-            number_of_pages = raw_data['number_of_pages']
 
     return solution_attempts
 
