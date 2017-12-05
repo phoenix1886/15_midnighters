@@ -14,7 +14,8 @@ def load_raw_data(page_number):
 
 def load_solution_attempts(data_loader):
     solution_attempts = []
-    first_page_data = data_loader(1)
+    first_page_number = 1
+    first_page_data = data_loader(first_page_number)
     total_number_of_pages = first_page_data['number_of_pages']
     solution_attempts.extend(first_page_data['records'])
 
