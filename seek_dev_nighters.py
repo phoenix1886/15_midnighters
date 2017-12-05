@@ -19,7 +19,7 @@ def load_solution_attempts(data_loader):
     total_number_of_pages = first_page_data['number_of_pages']
     solution_attempts.extend(first_page_data['records'])
 
-    for page_number in range(2, total_number_of_pages+1):
+    for page_number in range(first_page_number+1, total_number_of_pages+1):
         raw_data = data_loader(page_number)
         solution_attempts.extend(raw_data['records'])
 
